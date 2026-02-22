@@ -32,12 +32,6 @@ class Dashboard {
     // ----------------------------------------------------------
     // MAIN LOAD — called by app.js whenever dashboard page opens
     // ----------------------------------------------------------
-    async loadDashboard() {
-        await Promise.all([
-            this.loadReadings(),
-            this.loadAlerts()
-        ]);
-    }
 
     // ----------------------------------------------------------
     // BP READINGS
@@ -48,6 +42,27 @@ class Dashboard {
             this.showEmptyState('readings-list', 'Connect your wearable on the home page to see readings.');
             return;
         }
+ async function loadPatientDashboard(rookId) {
+    try {
+        const response = await fetch(`https://trkgrlzvuyaxfkjwfgmk.supabase.co/${rookId}`);
+        if (!response.ok) throw new Error("Patient not found");
+ 
+        const data = await response.json();
+        this.loadReadings(),
+        this.loadAlerts()     
+ 
+        // Now update your HTML with the data
+        document.getElementById("name").innerText = data.info.name;
+        document.getElementById("bp-display").innerText = 
+            `${data.history[0].systolic}/${data.history[0].diastolic}`;
+        console.log("Success:", data);
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+}
+ 
+// Call the function
+loadPatientDashboard("rook_test_user");       
 
         try {
             const res = await fetch(`/api/users/${userId}/readings`);
