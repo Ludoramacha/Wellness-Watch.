@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f64515">
+    <meta name="description" content="AURA Patient Dashboard - Blood Pressure Monitoring">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AURA">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23f64515' rx='45'/><text x='96' y='106' font-size='96' font-weight='bold' fill='%23fff' text-anchor='middle' font-family='Syne'>A</text></svg>">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Patient Dashboard - AURA</title>
+</head>
+<body>
+
+<nav class="bottom-nav">
+    <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+    </a>
+    <a href="#" class="nav-item" data-page="log">
+        <i class="fas fa-plus-circle"></i>
+        <span>Log</span>
+    </a>
+    <a href="#" class="nav-item" data-page="profile">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+    </a>
+</nav>
+
+<main class="page-container">
+
+<!-- Dashboard Page -->
+<section id="dashboard-page" class="page active">
+    <div class="page-top">
+        <div class="page-top-left">
+            <div class="greeting">Today's overview</div>
+            <h2>BP Dashboard</h2>
+        </div>
+        <div class="date-chip" id="todayDate"></div>
+    </div>
+
+    <div class="bp-hero-card" id="bpLatestCard">
+        <div class="bp-hero-bg"></div>
+        <div class="bp-hero-content">
+            <span class="bp-status-pill normal" id="bpStatus">
+                <span class="dot"></span>
+                Normal
+            </span>
+            <div class="bp-reading-big">
+                <span class="bp-value" id="bpValue">--/--</span>
+                <span class="bp-unit">mmHg</span>
+                <span class="bp-label">Blood Pressure</span>
+            </div>
+            <div class="bp-meta-row">
+                <div class="bp-meta-item">
+                    <i class="fas fa-heart"></i>
+                    <span id="bpPulse">-- bpm</span>
+                </div>
+                <div class="bp-meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="bpTime">No reading</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="section-head">
+            <h3>Trend — 7 days</h3>
+        </div>
+        <div class="chart-wrap">
+            <canvas id="bpChart" height="180"></canvas>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="section-head">
+            <h3>Latest Readings</h3>
+        </div>
+        <div id="readings-list">
+            <p class="empty-state">No readings recorded</p>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="section-head">
+            <h3>WhatsApp Alerts</h3>
+        </div>
+        <div id="alerts-list">
+            <p class="empty-state">No alerts sent</p>
+        </div>
+    </div>
+
+    <div style="height: 24px;"></div>
+</section>
+
+<!-- Log Reading Page -->
+<section id="log-page" class="page">
+    <div class="page-top">
+        <div class="page-top-left">
+            <div class="greeting">Add Reading</div>
+            <h2>Manual Entry</h2>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="section-head">
+            <h3>Blood Pressure Reading</h3>
+        </div>
+        <form id="logReadingForm" style="padding: clamp(20px, 5vw, 24px);">
+            <div class="form-group">
+                <label for="systolic">Systolic (mmHg)</label>
+                <input type="number" id="systolic" placeholder="e.g., 120" min="60" max="250" required>
+                <small>Top number - usually 90-120 mmHg</small>
+            </div>
+            <div class="form-group">
+                <label for="diastolic">Diastolic (mmHg)</label>
+                <input type="number" id="diastolic" placeholder="e.g., 80" min="40" max="150" required>
+                <small>Bottom number - usually 60-80 mmHg</small>
+            </div>
+            <div class="form-group">
+                <label for="pulse">Heart Rate (bpm)</label>
+                <input type="number" id="pulse" placeholder="e.g., 72" min="30" max="200" required>
+                <small>Beats per minute - usually 60-100 bpm</small>
+            </div>
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-check-circle"></i> Save Reading
+            </button>
+            <p class="form-message" id="logMessage"></p>
+        </form>
+    </div>
+
+    <div class="section-block">
+        <div class="section-head">
+            <h3>Connect Wearable</h3>
+        </div>
+        <div style="padding: clamp(16px, 4vw, 20px); display: flex; flex-direction: column; gap: clamp(12px, 3vw, 16px);">
+            <div class="data-source-item">
+                <i class="fas fa-watch pulse-icon"></i>
+                <div>
+                    <h4>Searching for Devices</h4>
+                    <p>Scanning available wearables...</p>
+                    <button class="btn-text btn-pulse" id="linkDeviceBtn" style="margin-top: 6px;" disabled>
+                        <span class="pulse-dot"></span> Searching
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 24px;"></div>
+</section>
+
+<!-- Profile Page -->
+<section id="profile-page" class="page">
+    <div class="page-top">
+        <div class="page-top-left">
+            <div class="greeting">Account</div>
+            <h2>Profile</h2>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="profile-section-head">
+            <i class="fas fa-user-circle"></i> Account Info
+        </div>
+        <div class="setting-item" style="flex-direction: column; align-items: flex-start;">
+            <h4 style="margin-bottom: 4px;">Email</h4>
+            <p id="profileEmail" style="font-size: clamp(14px, 3vw, 16px); color: var(--text-2); margin: 0;">patient@mail.com</p>
+        </div>
+        <div class="setting-item" style="flex-direction: column; align-items: flex-start;">
+            <h4 style="margin-bottom: 4px;">WhatsApp Number</h4>
+            <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                <p id="profilePhone" style="font-size: clamp(14px, 3vw, 16px); color: var(--text-2); margin: 0; flex: 1;">+267 XXXXXXX</p>
+                <button class="btn-text" id="editPhoneBtn" style="margin: 0;">Edit</button>
+            </div>
+        </div>
+        <div class="setting-item" style="flex-direction: column; align-items: flex-start;">
+            <h4 style="margin-bottom: 4px;">User ID</h4>
+            <p id="profileId" style="font-size: clamp(12px, 2.5vw, 13px); color: var(--text-3); margin: 0; font-family: 'DM Mono', monospace;">--</p>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="profile-section-head">
+            <i class="fas fa-link"></i> Connections
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h4>Wearable Device</h4>
+                <p>Sync BP data automatically</p>
+            </div>
+            <button class="btn-text" id="connectWearableBtn">Connect</button>
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h4>Health App</h4>
+                <p>Connect Apple Health or Google Fit</p>
+            </div>
+            <button class="btn-text">Connect</button>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="profile-section-head">
+            <i class="fas fa-cog"></i> Settings
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h4>WhatsApp Alerts</h4>
+                <p>Get notified when BP is high</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="alertsToggle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h4>Daily Reminders</h4>
+                <p>Get reminder to check BP</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="remindersToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <button class="btn-primary danger" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <div style="height: 24px;"></div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/patient.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+        console.log('Service Worker registered:', registration);
+      }).catch((err) => {
+        console.log('Service Worker registration failed:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f64515">
+    <meta name="description" content="AURA - Professional blood pressure monitoring for patients and clinicians">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AURA">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23f64515' rx='45'/><text x='96' y='106' font-size='96' font-weight='bold' fill='%23fff' text-anchor='middle' font-family='Syne'>A</text></svg>">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>AURA — Login</title>
+</head>
+<body>
+
+<main class="page-container">
+<section id="login-page" class="page active login-page">
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo-mark"></div>
+            <h1>AURA</h1>
+            <p class="tagline">Blood Pressure Monitor</p>
+        </div>
+
+        <div class="login-form-wrapper">
+            <div class="form-tabs">
+                <button class="tab-btn active" data-tab="patient">Patient</button>
+                <button class="tab-btn" data-tab="clinician">Clinician</button>
+            </div>
+
+            <form id="patientLoginForm" class="login-form active">
+                <div class="form-group">
+                    <label for="patientEmail">Email</label>
+                    <input type="email" id="patientEmail" placeholder="patient@mail.com" value="patient@mail.com" required>
+                    <small>Default: patient@mail.com</small>
+                </div>
+                <div class="form-group">
+                    <label for="patientPassword">Password</label>
+                    <input type="password" id="patientPassword" placeholder="Any password works" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Sign In as Patient
+                </button>
+                <p class="form-message" id="patientMessage"></p>
+            </form>
+
+            <form id="clinicianLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="clinicianEmail">Email</label>
+                    <input type="email" id="clinicianEmail" placeholder="clinician@aura.com" value="clinician@aura.com" required>
+                    <small>Your clinic email address</small>
+                </div>
+                <div class="form-group">
+                    <label for="clinicianPassword">Password</label>
+                    <input type="password" id="clinicianPassword" placeholder="Enter password" required>
+                    
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-stethoscope"></i> Sign In as Clinician
+                </button>
+                <p class="form-message" id="clinicianMessage"></p>
+            </form>
+        </div>
+
+        
+    </div>
+</section>
+</main>
+
+<script src="js/auth.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+        console.log('Service Worker registered:', registration);
+      }).catch((err) => {
+        console.log('Service Worker registration failed:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>
