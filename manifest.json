@@ -1,6 +1,6 @@
 {
-  "name": "AURA - Blood Pressure Monitor",
-  "short_name": "AURA",
+  "name": "R-LIVING - Blood Pressure Monitor",
+  "short_name": "R-LIVING",
   "description": "Professional blood pressure monitoring for patients and clinicians",
   "start_url": "/index.html",
   "scope": "/",
