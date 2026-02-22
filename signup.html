@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f64515">
+    <meta name="description" content="AURA - Sign up for professional blood pressure monitoring">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AURA">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23f64515' rx='45'/><text x='96' y='106' font-size='96' font-weight='bold' fill='%23fff' text-anchor='middle' font-family='Syne'>A</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="signup.css">
+    <title>AURA — Sign Up</title>
+</head>
+<body>
+    <main class="page-container">
+        <section id="signup-page" class="page active signup-page">
+            <div class="signup-container">
+                <div class="signup-header">
+                    <div class="logo-mark"></div>
+                    <h1>AURA</h1>
+                    <p class="tagline">Blood Pressure Monitor</p>
+                </div>
+
+                <div class="signup-card">
+                    <div class="signup-tabs">
+                        <button class="tab-btn active" data-tab="patient">
+                            <i class="fas fa-user"></i> Patient
+                        </button>
+                        <button class="tab-btn" data-tab="clinician">
+                            <i class="fas fa-stethoscope"></i> Clinician
+                        </button>
+                    </div>
+
+                    <!-- Patient Signup Form -->
+                    <form id="patientSignupForm" class="signup-form active">
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="patientFirstName">First Name</label>
+                                <input type="text" id="patientFirstName" placeholder="John" required>
+                            </div>
+                            <div class="form-group half">
+                                <label for="patientLastName">Last Name</label>
+                                <input type="text" id="patientLastName" placeholder="Doe" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patientEmail">Email</label>
+                            <input type="email" id="patientEmail" placeholder="patient@example.com" required>
+                            <small class="input-hint">We'll never share your email</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patientPhone">Phone Number</label>
+                            <input type="tel" id="patientPhone" placeholder="(555) 123-4567" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patientPassword">Password</label>
+                            <input type="password" id="patientPassword" placeholder="Create a password" required>
+                            <small class="input-hint">Minimum 8 characters</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patientConfirmPassword">Confirm Password</label>
+                            <input type="password" id="patientConfirmPassword" placeholder="Re-enter password" required>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="patientTerms" required>
+                                <span class="checkbox-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="patientMarketing">
+                                <span class="checkbox-text">I want to receive health tips and updates (optional)</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-user-plus"></i> Create Patient Account
+                        </button>
+                        <p class="form-message" id="patientMessage"></p>
+                    </form>
+
+                    <!-- Clinician Signup Form -->
+                    <form id="clinicianSignupForm" class="signup-form">
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="clinicianFirstName">First Name</label>
+                                <input type="text" id="clinicianFirstName" placeholder="Jane" required>
+                            </div>
+                            <div class="form-group half">
+                                <label for="clinicianLastName">Last Name</label>
+                                <input type="text" id="clinicianLastName" placeholder="Smith" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clinicianEmail">Work Email</label>
+                            <input type="email" id="clinicianEmail" placeholder="jane@hospital.com" required>
+                            <small class="input-hint">Use your professional email</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clinicianPhone">Phone Number</label>
+                            <input type="tel" id="clinicianPhone" placeholder="(555) 987-6543" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="licenseNumber">Medical License #</label>
+                            <input type="text" id="licenseNumber" placeholder="MD123456" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="practiceName">Practice/Hospital Name</label>
+                            <input type="text" id="practiceName" placeholder="City Medical Center" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clinicianPassword">Password</label>
+                            <input type="password" id="clinicianPassword" placeholder="Create a password" required>
+                            <small class="input-hint">Minimum 10 characters</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clinicianConfirmPassword">Confirm Password</label>
+                            <input type="password" id="clinicianConfirmPassword" placeholder="Re-enter password" required>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="clinicianTerms" required>
+                                <span class="checkbox-text">I agree to the <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a>, and <a href="#">HIPAA Compliance</a></span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="clinicianVerification">
+                                <span class="checkbox-text">I confirm that my license information is accurate and verifiable</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-stethoscope"></i> Create Clinician Account
+                        </button>
+                        <p class="form-message" id="clinicianMessage"></p>
+                    </form>
+
+                    <div class="signup-footer">
+                        <div class="divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-text">or sign up with</span>
+                            <span class="divider-line"></span>
+                        </div>
+
+                        <div class="social-signup">
+                            <button class="social-btn" aria-label="Sign up with Google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button class="social-btn" aria-label="Sign up with Apple">
+                                <i class="fab fa-apple"></i>
+                            </button>
+                            <button class="social-btn" aria-label="Sign up with Microsoft">
+                                <i class="fab fa-microsoft"></i>
+                            </button>
+                        </div>
+
+                        <p class="login-prompt">
+                            Already have an account? <a href="login.html">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="signup.js"></script>
+</body>
+</html>
